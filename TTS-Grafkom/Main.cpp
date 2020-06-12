@@ -5,15 +5,32 @@
 using namespace std;
 
 void drawLeftEllipse(float x_rads, float y_rads, float x_center, float y_center) {
+	glColor3f(0.68, 0.32, 0.22);
 	glBegin(GL_POLYGON);
 	for (int i = 0; i < 360; i++) {
 		glVertex2f(cos(i * phi / 180 + 100) * x_rads + x_center, sin(i * phi / 180 + 250) * y_rads + y_center);
 	}
 	glEnd();
+
+	glColor3f(1.0, 1.0, 1.0);
+	glBegin(GL_LINE_LOOP);
+	for (int i = 0; i < 360; i++) {
+		glVertex2f(cos(i * phi / 180 + 100) * x_rads + x_center, sin(i * phi / 180 + 250) * y_rads + y_center);
+	}
+	glEnd();
+	
 }
 
 void drawRightEllipse(float x_rads, float y_rads, float x_center, float y_center) {
+	glColor3f(0.68, 0.32, 0.22);
 	glBegin(GL_POLYGON);
+	for (int i = 0; i < 360; i++) {
+		glVertex2f(cos(i * phi / 180 - 100) * x_rads + x_center, sin(i * phi / 180 - 250) * y_rads + y_center);
+	}
+	glEnd();
+
+	glColor3f(1.0, 1.0, 1.0);
+	glBegin(GL_LINE_LOOP);
 	for (int i = 0; i < 360; i++) {
 		glVertex2f(cos(i * phi / 180 - 100) * x_rads + x_center, sin(i * phi / 180 - 250) * y_rads + y_center);
 	}
@@ -30,6 +47,7 @@ void mainBatikPattern(float delta_x, float delta_y) {
 void myInit() {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glPointSize(10);
+	glLineWidth(5);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0.0, 500.0, 0.0, 500.0);
