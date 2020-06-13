@@ -18,7 +18,6 @@ void drawLeftEllipse(float x_rads, float y_rads, float x_center, float y_center)
 		glVertex2f(cos(i * phi / 180 + 100) * x_rads + x_center, sin(i * phi / 180 + 250) * y_rads + y_center);
 	}
 	glEnd();
-	
 }
 
 void drawRightEllipse(float x_rads, float y_rads, float x_center, float y_center) {
@@ -37,6 +36,25 @@ void drawRightEllipse(float x_rads, float y_rads, float x_center, float y_center
 	glEnd();
 }
 
+void batikDetails(float point_x1, float point_x2, float point_y1, float point_y2) {
+	glBegin(GL_POINTS);
+	int x1 = point_x1, y1 = point_y1;
+	for (int i = 0; i < 100; i++) {
+		glVertex2f(x1, y1);
+		x1 += 10;
+		y1 -= 10;
+	}
+
+	int x2 = point_x2, y2 = point_y2;
+	for (int i = 0; i < 100; i++) {
+		glVertex2f(x2, y2);
+		x2 += 10;
+		y2 += 10;
+	}
+
+	glEnd();
+}
+
 void mainBatikPattern(float delta_x, float delta_y) {
 	drawLeftEllipse(25, 25, 25 + delta_x, 275 + delta_y);
 	drawRightEllipse(25, 25, 75 + delta_x, 275 + delta_y);
@@ -45,8 +63,8 @@ void mainBatikPattern(float delta_x, float delta_y) {
 }
 
 void myInit() {
-	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glPointSize(10);
+	glClearColor(0.07, 0.05, 0.07, 0.0);
+	glPointSize(3);
 	glLineWidth(5);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -87,6 +105,17 @@ void display() {
 		mainBatikPattern(delta_x5, -200);
 		delta_x5 += 100;
 	}
+
+	batikDetails(10, 0, 490, 400);
+	batikDetails(10, 0, 390, 300);
+	batikDetails(10, 0, 290, 200);
+	batikDetails(10, 0, 190, 100);
+	batikDetails(10, 0, 90, 0);
+
+	batikDetails(110, 400, 490, 0);
+	batikDetails(210, 300, 490, 0);
+	batikDetails(310, 200, 490, 0);
+	batikDetails(410, 100, 490, 0);
 
 	glFlush();
 
