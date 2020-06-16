@@ -4,63 +4,66 @@
 #define phi 3.14
 using namespace std;
 
-void drawLeftEllipse(float x_rads, float y_rads, float x_center, float y_center) {
-	glColor3f(0.68, 0.32, 0.22);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i < 360; i++) {
-		glVertex2f(cos(i * phi / 180 + 100) * x_rads + x_center, sin(i * phi / 180 + 250) * y_rads + y_center);
-	}
-	glEnd();
+class MyPattern {
+	public:
+		
+		void mainPattern(float delta_x, float delta_y) {
+			drawLeftEclipse(25 + delta_x, 275 + delta_y);
+			drawRightEclipse(75 + delta_x, 275 + delta_y);
+			drawRightEclipse(25 + delta_x, 225 + delta_y);	
+			drawLeftEclipse(75 + delta_x, 225 + delta_y);
+		}
 
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_LINE_LOOP);
-	for (int i = 0; i < 360; i++) {
-		glVertex2f(cos(i * phi / 180 + 100) * x_rads + x_center, sin(i * phi / 180 + 250) * y_rads + y_center);
-	}
-	glEnd();
-}
+		void drawLeftEclipse(float x_center, float y_center) {
+			glColor3f(0.68, 0.32, 0.22);
+			glBegin(GL_POLYGON);
+			for (int i = 0; i < 360; i++) {
+				glVertex2f(cos(i * phi / 180 + 100) * 25 + x_center, sin(i * phi / 180 + 250) * 25 + y_center);
+			}
+			glEnd();
 
-void drawRightEllipse(float x_rads, float y_rads, float x_center, float y_center) {
-	glColor3f(0.68, 0.32, 0.22);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i < 360; i++) {
-		glVertex2f(cos(i * phi / 180 - 100) * x_rads + x_center, sin(i * phi / 180 - 250) * y_rads + y_center);
-	}
-	glEnd();
+			glColor3f(0.83, 0.82, 0.84);
+			glBegin(GL_LINE_LOOP);
+			for (int i = 0; i < 360; i++) {
+				glVertex2f(cos(i * phi / 180 + 100) * 25 + x_center, sin(i * phi / 180 + 250) * 25 + y_center);
+			}
+			glEnd();
+		}
 
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_LINE_LOOP);
-	for (int i = 0; i < 360; i++) {
-		glVertex2f(cos(i * phi / 180 - 100) * x_rads + x_center, sin(i * phi / 180 - 250) * y_rads + y_center);
-	}
-	glEnd();
-}
+		void drawRightEclipse(float x_center, float y_center) {
+			glColor3f(0.68, 0.32, 0.22);
+			glBegin(GL_POLYGON);
+			for (int i = 0; i < 360; i++) {
+				glVertex2f(cos(i * phi / 180 - 100) * 25 + x_center, sin(i * phi / 180 - 250) * 25 + y_center);
+			}
+			glEnd();
 
-void batikDetails(float point_x1, float point_x2, float point_y1, float point_y2) {
-	glBegin(GL_POINTS);
-	int x1 = point_x1, y1 = point_y1;
-	for (int i = 0; i < 100; i++) {
-		glVertex2f(x1, y1);
-		x1 += 10;
-		y1 -= 10;
-	}
+			glColor3f(0.83, 0.82, 0.84);
+			glBegin(GL_LINE_LOOP);
+			for (int i = 0; i < 360; i++) {
+				glVertex2f(cos(i * phi / 180 - 100) * 25 + x_center, sin(i * phi / 180 - 250) * 25 + y_center);
+			}
+			glEnd();
+		}
 
-	int x2 = point_x2, y2 = point_y2;
-	for (int i = 0; i < 100; i++) {
-		glVertex2f(x2, y2);
-		x2 += 10;
-		y2 += 10;
-	}
+		void batikDetails(float point_x1, float point_x2, float point_y1, float point_y2) {
+			glBegin(GL_POINTS);
+			int x1 = point_x1, y1 = point_y1;
+			for (int i = 0; i < 100; i++) {
+				glVertex2f(x1, y1);
+				x1 += 10;
+				y1 -= 10;
+			}
 
-	glEnd();
-}
-
-void mainBatikPattern(float delta_x, float delta_y) {
-	drawLeftEllipse(25, 25, 25 + delta_x, 275 + delta_y);
-	drawRightEllipse(25, 25, 75 + delta_x, 275 + delta_y);
-	drawRightEllipse(25, 25, 25 + delta_x, 225 + delta_y);
-	drawLeftEllipse(25, 25, 75 + delta_x, 225 + delta_y);
-}
+			int x2 = point_x2, y2 = point_y2;
+			for (int i = 0; i < 100; i++) {
+				glVertex2f(x2, y2);
+				x2 += 10;
+				y2 += 10;
+			}
+			glEnd();
+		}
+};
 
 void myInit() {
 	glClearColor(0.07, 0.05, 0.07, 0.0);
@@ -74,48 +77,53 @@ void myInit() {
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	int delta_x1 = 0.0, delta_x2 = 0.0, delta_x3 = 0.0, delta_x4 = 0.0, delta_x5 = 0.0;
+	MyPattern batikPattern;
 
+	float delta_x1 = 0.0, delta_x2 = 0.0, delta_x3 = 0.0, delta_x4 = 0.0, delta_x5 = 0.0;
 	/* 1st Level */
 	for (int i = 0; i < 5; i++) {
-		mainBatikPattern(delta_x1, 200);
+		batikPattern.mainPattern(delta_x1, 200);
 		delta_x1 += 100;
 	}
 
 	/* 2nd Level */
 	for (int i = 0; i < 5; i++) {
-		mainBatikPattern(delta_x2, 100);
+		batikPattern.mainPattern(delta_x2, 100);
 		delta_x2 += 100;
 	}
 
 	/* Center */
 	for (int i = 0; i < 5; i++) {
-		mainBatikPattern(delta_x3, 0);
+		batikPattern.mainPattern(delta_x3, 0);
 		delta_x3 += 100;
 	}
 
 	/* 4th Level */
 	for (int i = 0; i < 5; i++) {
-		mainBatikPattern(delta_x4, -100);
+		batikPattern.mainPattern(delta_x4, -100);
 		delta_x4 += 100;
 	}
 
 	/* 5th Level */
 	for (int i = 0; i < 5; i++) {
-		mainBatikPattern(delta_x5, -200);
+		batikPattern.mainPattern(delta_x5, -200);
 		delta_x5 += 100;
 	}
 
-	batikDetails(10, 0, 490, 400);
-	batikDetails(10, 0, 390, 300);
-	batikDetails(10, 0, 290, 200);
-	batikDetails(10, 0, 190, 100);
-	batikDetails(10, 0, 90, 0);
+	/* Batik Details */
+	int detail_x = 490, detail_y = 400;
+	for (int i = 0; i < 5; i++) {
+		batikPattern.batikDetails(10, 0, detail_x, detail_y);
+		detail_x -= 100;
+		detail_y -= 100;
+	}
 
-	batikDetails(110, 400, 490, 0);
-	batikDetails(210, 300, 490, 0);
-	batikDetails(310, 200, 490, 0);
-	batikDetails(410, 100, 490, 0);
+	int detail_x2 = 110, detail_y2 = 400;
+	for (int i = 0; i < 5; i++) {
+		batikPattern.batikDetails(detail_x2, detail_y2, 490, 0);
+		detail_x2 += 100;
+		detail_y2 -= 100;
+	}
 
 	glFlush();
 
