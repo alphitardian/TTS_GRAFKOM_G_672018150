@@ -79,38 +79,20 @@ void display() {
 
 	MyPattern batikPattern;
 
-	float delta_x1 = 0.0, delta_x2 = 0.0, delta_x3 = 0.0, delta_x4 = 0.0, delta_x5 = 0.0;
-	/* 1st Level */
+	float delta_x = 0.0;
+	float delta_y = 200;
+
+	/* Main */
 	for (int i = 0; i < 5; i++) {
-		batikPattern.mainPattern(delta_x1, 200);
-		delta_x1 += 100;
+		for (int i = 0; i < 5; i++) {
+			batikPattern.mainPattern(delta_x, delta_y);
+			delta_x += 100;
+		}
+		delta_x = 0.0;
+		delta_y -= 100;
 	}
 
-	/* 2nd Level */
-	for (int i = 0; i < 5; i++) {
-		batikPattern.mainPattern(delta_x2, 100);
-		delta_x2 += 100;
-	}
-
-	/* Center */
-	for (int i = 0; i < 5; i++) {
-		batikPattern.mainPattern(delta_x3, 0);
-		delta_x3 += 100;
-	}
-
-	/* 4th Level */
-	for (int i = 0; i < 5; i++) {
-		batikPattern.mainPattern(delta_x4, -100);
-		delta_x4 += 100;
-	}
-
-	/* 5th Level */
-	for (int i = 0; i < 5; i++) {
-		batikPattern.mainPattern(delta_x5, -200);
-		delta_x5 += 100;
-	}
-
-	/* Batik Details */
+	/* Detail */
 	int detail_x = 490, detail_y = 400;
 	for (int i = 0; i < 5; i++) {
 		batikPattern.batikDetails(10, 0, detail_x, detail_y);
@@ -126,7 +108,6 @@ void display() {
 	}
 
 	glFlush();
-
 }
 
 int main(int argc, char** argv) {
