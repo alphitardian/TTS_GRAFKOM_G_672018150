@@ -6,7 +6,6 @@ using namespace std;
 
 class MyPattern {
 	public:
-		
 		void mainPattern(float delta_x, float delta_y) {
 			drawLeftEclipse(25 + delta_x, 275 + delta_y);
 			drawRightEclipse(75 + delta_x, 275 + delta_y);
@@ -14,6 +13,22 @@ class MyPattern {
 			drawLeftEclipse(75 + delta_x, 225 + delta_y);
 		}
 
+		void batikDetails(float point_x1, float point_x2, float point_y1, float point_y2) {
+			glBegin(GL_POINTS);
+			int x1 = point_x1, y1 = point_y1, x2 = point_x2, y2 = point_y2;
+			for (int i = 0; i < 100; i++) {
+				glVertex2f(x1, y1);
+				x1 += 10;
+				y1 -= 10;
+
+				glVertex2f(x2, y2);
+				x2 += 10;
+				y2 += 10;
+			}
+			glEnd();
+		}
+
+	private:
 		void drawLeftEclipse(float x_center, float y_center) {
 			glColor3f(0.68, 0.32, 0.22);
 			glBegin(GL_POLYGON);
@@ -42,24 +57,6 @@ class MyPattern {
 			glBegin(GL_LINE_LOOP);
 			for (int i = 0; i < 360; i++) {
 				glVertex2f(cos(i * phi / 180 - 100) * 25 + x_center, sin(i * phi / 180 - 250) * 25 + y_center);
-			}
-			glEnd();
-		}
-
-		void batikDetails(float point_x1, float point_x2, float point_y1, float point_y2) {
-			glBegin(GL_POINTS);
-			int x1 = point_x1, y1 = point_y1;
-			for (int i = 0; i < 100; i++) {
-				glVertex2f(x1, y1);
-				x1 += 10;
-				y1 -= 10;
-			}
-
-			int x2 = point_x2, y2 = point_y2;
-			for (int i = 0; i < 100; i++) {
-				glVertex2f(x2, y2);
-				x2 += 10;
-				y2 += 10;
 			}
 			glEnd();
 		}
@@ -94,14 +91,12 @@ void display() {
 
 	/* Detail */
 	int detail_x = 490, detail_y = 400;
+	int detail_x2 = 110, detail_y2 = 400;
 	for (int i = 0; i < 5; i++) {
 		batikPattern.batikDetails(10, 0, detail_x, detail_y);
 		detail_x -= 100;
 		detail_y -= 100;
-	}
 
-	int detail_x2 = 110, detail_y2 = 400;
-	for (int i = 0; i < 5; i++) {
 		batikPattern.batikDetails(detail_x2, detail_y2, 490, 0);
 		detail_x2 += 100;
 		detail_y2 -= 100;
