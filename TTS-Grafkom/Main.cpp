@@ -68,8 +68,8 @@ class MainBatikPattern : MyPattern {
 
 void myInit() {
 	glClearColor(0.07, 0.05, 0.07, 0.0);
-	glPointSize(3);
-	glLineWidth(5);
+	glPointSize(4);
+	glLineWidth(4);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0.0, 500.0, 0.0, 500.0);
@@ -111,6 +111,12 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(500, 500);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("TTS - Grafika Komputer");
+
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POINT_SMOOTH);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
 
 	glutDisplayFunc(display);
 
